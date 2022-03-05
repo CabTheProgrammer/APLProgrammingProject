@@ -21,4 +21,12 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+# To test
+
+lexer = lex.lex()
+lexer.input('+')
+
+for token in lexer:
+    print(token)
+
     
