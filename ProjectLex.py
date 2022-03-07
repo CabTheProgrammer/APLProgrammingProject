@@ -2,7 +2,7 @@
 # Done by: Ralph Taylor | ID: 1803071
 
 import ply.lex as lex
-
+import sys
 # Imports for LEX to make a lexical analyzer
 
 tokens = (
@@ -107,13 +107,11 @@ def t_error(t):
 # PRE-ENTERED DATA
 data = ''' 3 + 4  Equals (=) 7  
      '''
-
-
 # To build the lexer
 lexer = lex.lex()
 
 # Give the lexer the data above as input
-lexer.input(data)
+lexer.input(sys.argv[1])
 
 # Tokenizing it
 while True:
