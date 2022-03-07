@@ -64,17 +64,19 @@ def t_NUMBER(t):
 
 # Regular Expression to obtain/check for Floating point numbers
 
-"""
 def t_FLOATNUMBER(t):
-    r'[\d]+[.]+[\d]+'
+    r'^[-+]?[0-9]*[.][0-9]+$'
+    #r'[\d]+[.]+[\d]+'
     t.value = float(t.value)
     return t
-"""
-"""            
-    r'\d.d+'
-    t.value = float(t.value)
-    return t
-"""
+
+def t_COMMENT(t):
+     r'\#.*'
+     pass
+    # r'\d.d+'
+    # t.value = float(t.value)
+    # return t
+
 
 # To track line numbers
 def t_NewLine(t):
@@ -111,7 +113,7 @@ data = ''' 3 + 4  Equals (=) 7
 lexer = lex.lex()
 
 # Give the lexer the data above as input
-lexer.input(sys.argv[1])
+lexer.input(sys.argv[1]) # you can pass data here to test it with the above string in case 
 
 # Tokenizing it
 while True:
