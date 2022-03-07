@@ -2,6 +2,7 @@
 # Done by: Ralph Taylor | ID: 1803071
 
 import ply.lex as lex
+from  ply.lex import TOKEN
 import sys
 # Imports for LEX to make a lexical analyzer
 
@@ -23,8 +24,14 @@ tokens = (
 
 )
 
-# Regular expression rules for simple tokens
+# Regular Expression to obtain/check for Floating point numbers
+def t_FLOATNUMBER(t):
+    # r'^[-+]?[0-9]*[.][0-9]+$'
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
 
+# Regular expression rules for simple tokens
 t_POINT = r'\.'
 t_PLUS = r'\+'
 t_COLON = r'\:'
@@ -36,61 +43,20 @@ t_EQUAL = r'\='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 
-
 # Regular expression rule with some action code
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-"""
-    # If statement to check ig there is a decimal point in the number. If there is it goes to the while loop.
-
-    if t.value != None and t.value + '.':
-        while t.value != None and t.value != ' ':
-
-            # While loop is to continue going through the float to the last digit behind the point.
-            # Before it recognized it but stopped at the 3.0 and didn't get to the 3.04
-
-            t.value = float(t.value)
-            print("Code is here!")
-            return t
-    # When it breaks, it shows/returns the full number
-    else:
-"""
-#Comments end here.
-#Float checker isn't working as yet, but Int or Numbers checking works!
-
-
-# Regular Expression to obtain/check for Floating point numbers
-
-def t_FLOATNUMBER(t):
-    r'^[-+]?[0-9]*[.][0-9]+$'
-    #r'[\d]+[.]+[\d]+'
-    t.value = float(t.value)
-    return t
-
 def t_COMMENT(t):
      r'\#.*'
      pass
-
- # Define a rule so we can track line numbers
-def t_newline(t):
-     r'\n+'
-     t.lexer.lineno += len(t.value)
-
-
-
-    # r'\d.d+'
-    # t.value = float(t.value)
-    # return t
-
 
 # To track line numbers
 def t_NewLine(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-
 
 # To specify characters/letters (Basically any word)
 def t_WORD(t):
@@ -102,10 +68,8 @@ def t_WORD(t):
     # Return gives back the WORD TOKEN entered then "Stores it" (I think anyway for the stores part).
     return t
 
-
 # To tell what to ignore (Space and tabs)
 t_ignore = ' \t'
-
 
 # For error handling
 def t_error(t):
@@ -118,7 +82,7 @@ def t_error(t):
 data = ''' 3 + 4  Equals (=) 7  
      '''
 # To build the lexer
-lexer = lex.lex()
+lexer = lex.lex(debug = 1) #TODO: REMOVE THE DEBUG FLAG
 
 # Give the lexer the data above as input
 lexer.input(sys.argv[1]) # you can pass data here to test it with the above string in case 
