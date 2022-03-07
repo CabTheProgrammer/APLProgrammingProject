@@ -73,6 +73,14 @@ def t_FLOATNUMBER(t):
 def t_COMMENT(t):
      r'\#.*'
      pass
+
+ # Define a rule so we can track line numbers
+def t_newline(t):
+     r'\n+'
+     t.lexer.lineno += len(t.value)
+
+
+
     # r'\d.d+'
     # t.value = float(t.value)
     # return t
