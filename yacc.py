@@ -5,6 +5,8 @@ import ply.yacc as yacc
 # Get the token map from the lexer.  This is required.
 from ProjectLex import tokens
 
+#TODO: Add support for floating point
+
 def p_expression_plus(p):
     'expression : expression PLUS term'
     p[0] = p[1] + p[3]
@@ -44,9 +46,11 @@ def p_error(p):
 # Build the parser
 parser = yacc.yacc()
 
+print("Welcone to the src programming language\n")
 while True:
     try:
-        s = input('calc > ')
+       
+        s = input('src > ')
     except EOFError:
         break
     if not s: continue
