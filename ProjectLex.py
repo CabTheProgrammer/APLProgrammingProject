@@ -79,13 +79,14 @@ def t_error(t):
 
 # To test it out
 # PRE-ENTERED DATA
-data = ''' 3 + 4  Equals (=) 7  
+data = ''' 3 + 4   
      '''
 # To build the lexer
 lexer = lex.lex(debug = 1) #TODO: REMOVE THE DEBUG FLAG
 
 # Give the lexer the data above as input
-lexer.input(sys.argv[1]) # you can pass data here to test it with the above string in case 
+lexer.input(data) # you can pass data here to test it with the above string in case 
+# lexer.input(sys.argv[1]) # you can pass data here to test it with the above string in case 
 
 # Tokenizing it
 while True:
