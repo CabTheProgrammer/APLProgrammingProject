@@ -85,16 +85,16 @@ data = ''' 3 + 4
 lexer = lex.lex(debug = 1) #TODO: REMOVE THE DEBUG FLAG
 
 # Give the lexer the data above as input
-lexer.input(data) # you can pass data here to test it with the above string in case 
+#lexer.input(data) # you can pass data here to test it with the above string in case 
 # lexer.input(sys.argv[1]) # you can pass data here to test it with the above string in case 
 
 # Tokenizing it
-while True:
-    tok = lexer.token()
-    if not tok:
-        # No more input
-        break
-    print(tok.type, ": ", tok.value)  # , tok.lineno, tok.lexpos)
+# while True:
+#     tok = lexer.token()
+#     if not tok:
+#         # No more input
+#         break
+#     print(tok.type, ": ", tok.value)  # , tok.lineno, tok.lexpos)
 
 # The above is commented, because when YACC is implemented it will accept user input seemingly.
 

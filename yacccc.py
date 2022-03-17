@@ -121,7 +121,7 @@ def p_error(p):
     print("This is the last type: "+p.type)
 
 # Build the parser
-parser = yacc.yacc()
+parser = yacc.yacc(debug=True)
 
 print("Welcone to the src programming language\n")
 while True:
