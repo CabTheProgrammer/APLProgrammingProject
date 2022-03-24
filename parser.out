@@ -3,318 +3,995 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     COLON
-    EQUAL
     POINT
-    WORD
 
 Grammar
 
-Rule 0     S' -> term
-Rule 1     term -> term DIVIDE factor
-Rule 2     term -> term MULTIPLY factor
-Rule 3     expression -> term
-Rule 4     expression -> expression EXPONENTIAL term
-Rule 5     expression -> expression PLUS term
-Rule 6     expression -> expression MINUS term
-Rule 7     factor -> FLOATNUMBER
-Rule 8     factor -> NUMBER
-Rule 9     factor -> LPAREN expression RPAREN
-Rule 10    term -> factor
+Rule 0     S' -> stmt
+Rule 1     stmt -> WORD EQUAL expression
+Rule 2     stmt -> expression
+Rule 3     expression -> expression PLUS term
+Rule 4     expression -> term PLUS expression
+Rule 5     expression -> expression MINUS term
+Rule 6     expression -> term MINUS expression
+Rule 7     expression -> expression EXPONENTIAL term
+Rule 8     expression -> term EXPONENTIAL expression
+Rule 9     expression -> expression PLUS expression
+Rule 10    expression -> expression MULTIPLY expression
+Rule 11    expression -> expression MULTIPLY term
+Rule 12    expression -> term MULTIPLY expression
+Rule 13    expression -> WORD
+Rule 14    expression -> MINUS expression
+Rule 15    expression -> term
+Rule 16    term -> term DIVIDE factor
+Rule 17    term -> term MULTIPLY factor
+Rule 18    term -> factor
+Rule 19    factor -> NUMBER
+Rule 20    factor -> FLOATNUMBER
+Rule 21    factor -> LPAREN expression RPAREN
 
 Terminals, with rules where they appear
 
 COLON                : 
-DIVIDE               : 1
-EQUAL                : 
-EXPONENTIAL          : 4
-FLOATNUMBER          : 7
-LPAREN               : 9
-MINUS                : 6
-MULTIPLY             : 2
-NUMBER               : 8
-PLUS                 : 5
+DIVIDE               : 16
+EQUAL                : 1
+EXPONENTIAL          : 7 8
+FLOATNUMBER          : 20
+LPAREN               : 21
+MINUS                : 5 6 14
+MULTIPLY             : 10 11 12 17
+NUMBER               : 19
+PLUS                 : 3 4 9
 POINT                : 
-RPAREN               : 9
-WORD                 : 
+RPAREN               : 21
+WORD                 : 1 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 4 5 6 9
-factor               : 1 2 10
-term                 : 1 2 3 4 5 6 0
+expression           : 1 2 3 4 5 6 7 8 9 9 10 10 11 12 14 21
+factor               : 16 17 18
+stmt                 : 0
+term                 : 3 4 5 6 7 8 11 12 15 16 17
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . term
-    (1) term -> . term DIVIDE factor
-    (2) term -> . term MULTIPLY factor
-    (10) term -> . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (0) S' -> . stmt
+    (1) stmt -> . WORD EQUAL expression
+    (2) stmt -> . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    WORD            shift and go to state 2
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    term                           shift and go to state 1
-    factor                         shift and go to state 2
+    stmt                           shift and go to state 1
+    expression                     shift and go to state 3
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
 
 state 1
 
-    (0) S' -> term .
-    (1) term -> term . DIVIDE factor
-    (2) term -> term . MULTIPLY factor
+    (0) S' -> stmt .
 
-    DIVIDE          shift and go to state 6
-    MULTIPLY        shift and go to state 7
 
 
 state 2
 
-    (10) term -> factor .
+    (1) stmt -> WORD . EQUAL expression
+    (13) expression -> WORD .
 
-    DIVIDE          reduce using rule 10 (term -> factor .)
-    MULTIPLY        reduce using rule 10 (term -> factor .)
-    $end            reduce using rule 10 (term -> factor .)
-    RPAREN          reduce using rule 10 (term -> factor .)
-    EXPONENTIAL     reduce using rule 10 (term -> factor .)
-    PLUS            reduce using rule 10 (term -> factor .)
-    MINUS           reduce using rule 10 (term -> factor .)
+    EQUAL           shift and go to state 10
+    PLUS            reduce using rule 13 (expression -> WORD .)
+    MINUS           reduce using rule 13 (expression -> WORD .)
+    EXPONENTIAL     reduce using rule 13 (expression -> WORD .)
+    MULTIPLY        reduce using rule 13 (expression -> WORD .)
+    $end            reduce using rule 13 (expression -> WORD .)
 
 
 state 3
 
-    (7) factor -> FLOATNUMBER .
+    (2) stmt -> expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
 
-    DIVIDE          reduce using rule 7 (factor -> FLOATNUMBER .)
-    MULTIPLY        reduce using rule 7 (factor -> FLOATNUMBER .)
-    $end            reduce using rule 7 (factor -> FLOATNUMBER .)
-    RPAREN          reduce using rule 7 (factor -> FLOATNUMBER .)
-    EXPONENTIAL     reduce using rule 7 (factor -> FLOATNUMBER .)
-    PLUS            reduce using rule 7 (factor -> FLOATNUMBER .)
-    MINUS           reduce using rule 7 (factor -> FLOATNUMBER .)
+    $end            reduce using rule 2 (stmt -> expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    EXPONENTIAL     shift and go to state 13
+    MULTIPLY        shift and go to state 14
 
 
 state 4
 
-    (8) factor -> NUMBER .
+    (4) expression -> term . PLUS expression
+    (6) expression -> term . MINUS expression
+    (8) expression -> term . EXPONENTIAL expression
+    (12) expression -> term . MULTIPLY expression
+    (15) expression -> term .
+    (16) term -> term . DIVIDE factor
+    (17) term -> term . MULTIPLY factor
 
-    DIVIDE          reduce using rule 8 (factor -> NUMBER .)
-    MULTIPLY        reduce using rule 8 (factor -> NUMBER .)
-    $end            reduce using rule 8 (factor -> NUMBER .)
-    RPAREN          reduce using rule 8 (factor -> NUMBER .)
-    EXPONENTIAL     reduce using rule 8 (factor -> NUMBER .)
-    PLUS            reduce using rule 8 (factor -> NUMBER .)
-    MINUS           reduce using rule 8 (factor -> NUMBER .)
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for EXPONENTIAL resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+    PLUS            shift and go to state 15
+    MINUS           shift and go to state 16
+    EXPONENTIAL     shift and go to state 17
+    MULTIPLY        shift and go to state 18
+    $end            reduce using rule 15 (expression -> term .)
+    RPAREN          reduce using rule 15 (expression -> term .)
+    DIVIDE          shift and go to state 19
+
+  ! PLUS            [ reduce using rule 15 (expression -> term .) ]
+  ! MINUS           [ reduce using rule 15 (expression -> term .) ]
+  ! EXPONENTIAL     [ reduce using rule 15 (expression -> term .) ]
+  ! MULTIPLY        [ reduce using rule 15 (expression -> term .) ]
 
 
 state 5
 
-    (9) factor -> LPAREN . expression RPAREN
-    (3) expression -> . term
-    (4) expression -> . expression EXPONENTIAL term
-    (5) expression -> . expression PLUS term
-    (6) expression -> . expression MINUS term
-    (1) term -> . term DIVIDE factor
-    (2) term -> . term MULTIPLY factor
-    (10) term -> . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (14) expression -> MINUS . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    expression                     shift and go to state 8
-    term                           shift and go to state 9
-    factor                         shift and go to state 2
+    expression                     shift and go to state 20
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
 
 state 6
 
-    (1) term -> term DIVIDE . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (18) term -> factor .
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    PLUS            reduce using rule 18 (term -> factor .)
+    MINUS           reduce using rule 18 (term -> factor .)
+    EXPONENTIAL     reduce using rule 18 (term -> factor .)
+    MULTIPLY        reduce using rule 18 (term -> factor .)
+    DIVIDE          reduce using rule 18 (term -> factor .)
+    $end            reduce using rule 18 (term -> factor .)
+    RPAREN          reduce using rule 18 (term -> factor .)
 
-    factor                         shift and go to state 10
 
 state 7
 
-    (2) term -> term MULTIPLY . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (19) factor -> NUMBER .
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    PLUS            reduce using rule 19 (factor -> NUMBER .)
+    MINUS           reduce using rule 19 (factor -> NUMBER .)
+    EXPONENTIAL     reduce using rule 19 (factor -> NUMBER .)
+    MULTIPLY        reduce using rule 19 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 19 (factor -> NUMBER .)
+    $end            reduce using rule 19 (factor -> NUMBER .)
+    RPAREN          reduce using rule 19 (factor -> NUMBER .)
 
-    factor                         shift and go to state 11
 
 state 8
 
-    (9) factor -> LPAREN expression . RPAREN
-    (4) expression -> expression . EXPONENTIAL term
-    (5) expression -> expression . PLUS term
-    (6) expression -> expression . MINUS term
+    (20) factor -> FLOATNUMBER .
 
-    RPAREN          shift and go to state 12
-    EXPONENTIAL     shift and go to state 13
-    PLUS            shift and go to state 14
-    MINUS           shift and go to state 15
+    PLUS            reduce using rule 20 (factor -> FLOATNUMBER .)
+    MINUS           reduce using rule 20 (factor -> FLOATNUMBER .)
+    EXPONENTIAL     reduce using rule 20 (factor -> FLOATNUMBER .)
+    MULTIPLY        reduce using rule 20 (factor -> FLOATNUMBER .)
+    DIVIDE          reduce using rule 20 (factor -> FLOATNUMBER .)
+    $end            reduce using rule 20 (factor -> FLOATNUMBER .)
+    RPAREN          reduce using rule 20 (factor -> FLOATNUMBER .)
 
 
 state 9
 
-    (3) expression -> term .
-    (1) term -> term . DIVIDE factor
-    (2) term -> term . MULTIPLY factor
+    (21) factor -> LPAREN . expression RPAREN
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    RPAREN          reduce using rule 3 (expression -> term .)
-    EXPONENTIAL     reduce using rule 3 (expression -> term .)
-    PLUS            reduce using rule 3 (expression -> term .)
-    MINUS           reduce using rule 3 (expression -> term .)
-    DIVIDE          shift and go to state 6
-    MULTIPLY        shift and go to state 7
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    expression                     shift and go to state 22
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
 
 state 10
 
-    (1) term -> term DIVIDE factor .
+    (1) stmt -> WORD EQUAL . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    DIVIDE          reduce using rule 1 (term -> term DIVIDE factor .)
-    MULTIPLY        reduce using rule 1 (term -> term DIVIDE factor .)
-    $end            reduce using rule 1 (term -> term DIVIDE factor .)
-    RPAREN          reduce using rule 1 (term -> term DIVIDE factor .)
-    EXPONENTIAL     reduce using rule 1 (term -> term DIVIDE factor .)
-    PLUS            reduce using rule 1 (term -> term DIVIDE factor .)
-    MINUS           reduce using rule 1 (term -> term DIVIDE factor .)
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    expression                     shift and go to state 23
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
 
 state 11
 
-    (2) term -> term MULTIPLY factor .
+    (3) expression -> expression PLUS . term
+    (9) expression -> expression PLUS . expression
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    DIVIDE          reduce using rule 2 (term -> term MULTIPLY factor .)
-    MULTIPLY        reduce using rule 2 (term -> term MULTIPLY factor .)
-    $end            reduce using rule 2 (term -> term MULTIPLY factor .)
-    RPAREN          reduce using rule 2 (term -> term MULTIPLY factor .)
-    EXPONENTIAL     reduce using rule 2 (term -> term MULTIPLY factor .)
-    PLUS            reduce using rule 2 (term -> term MULTIPLY factor .)
-    MINUS           reduce using rule 2 (term -> term MULTIPLY factor .)
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    expression                     shift and go to state 24
+    term                           shift and go to state 25
+    factor                         shift and go to state 6
 
 state 12
 
-    (9) factor -> LPAREN expression RPAREN .
+    (5) expression -> expression MINUS . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    DIVIDE          reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    MULTIPLY        reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    $end            reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    EXPONENTIAL     reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 9 (factor -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 9 (factor -> LPAREN expression RPAREN .)
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    term                           shift and go to state 26
+    factor                         shift and go to state 6
 
 state 13
 
-    (4) expression -> expression EXPONENTIAL . term
-    (1) term -> . term DIVIDE factor
-    (2) term -> . term MULTIPLY factor
-    (10) term -> . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (7) expression -> expression EXPONENTIAL . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    term                           shift and go to state 16
-    factor                         shift and go to state 2
+    term                           shift and go to state 27
+    factor                         shift and go to state 6
 
 state 14
 
-    (5) expression -> expression PLUS . term
-    (1) term -> . term DIVIDE factor
-    (2) term -> . term MULTIPLY factor
-    (10) term -> . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (10) expression -> expression MULTIPLY . expression
+    (11) expression -> expression MULTIPLY . term
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    term                           shift and go to state 17
-    factor                         shift and go to state 2
+    expression                     shift and go to state 28
+    term                           shift and go to state 29
+    factor                         shift and go to state 6
 
 state 15
 
-    (6) expression -> expression MINUS . term
-    (1) term -> . term DIVIDE factor
-    (2) term -> . term MULTIPLY factor
-    (10) term -> . factor
-    (7) factor -> . FLOATNUMBER
-    (8) factor -> . NUMBER
-    (9) factor -> . LPAREN expression RPAREN
+    (4) expression -> term PLUS . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    FLOATNUMBER     shift and go to state 3
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
-    term                           shift and go to state 18
-    factor                         shift and go to state 2
+    term                           shift and go to state 4
+    expression                     shift and go to state 30
+    factor                         shift and go to state 6
 
 state 16
 
-    (4) expression -> expression EXPONENTIAL term .
-    (1) term -> term . DIVIDE factor
-    (2) term -> term . MULTIPLY factor
+    (6) expression -> term MINUS . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    RPAREN          reduce using rule 4 (expression -> expression EXPONENTIAL term .)
-    EXPONENTIAL     reduce using rule 4 (expression -> expression EXPONENTIAL term .)
-    PLUS            reduce using rule 4 (expression -> expression EXPONENTIAL term .)
-    MINUS           reduce using rule 4 (expression -> expression EXPONENTIAL term .)
-    DIVIDE          shift and go to state 6
-    MULTIPLY        shift and go to state 7
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    term                           shift and go to state 4
+    expression                     shift and go to state 31
+    factor                         shift and go to state 6
 
 state 17
 
-    (5) expression -> expression PLUS term .
-    (1) term -> term . DIVIDE factor
-    (2) term -> term . MULTIPLY factor
+    (8) expression -> term EXPONENTIAL . expression
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
 
-    RPAREN          reduce using rule 5 (expression -> expression PLUS term .)
-    EXPONENTIAL     reduce using rule 5 (expression -> expression PLUS term .)
-    PLUS            reduce using rule 5 (expression -> expression PLUS term .)
-    MINUS           reduce using rule 5 (expression -> expression PLUS term .)
-    DIVIDE          shift and go to state 6
-    MULTIPLY        shift and go to state 7
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    term                           shift and go to state 4
+    expression                     shift and go to state 32
+    factor                         shift and go to state 6
 
 state 18
 
-    (6) expression -> expression MINUS term .
-    (1) term -> term . DIVIDE factor
-    (2) term -> term . MULTIPLY factor
+    (12) expression -> term MULTIPLY . expression
+    (17) term -> term MULTIPLY . factor
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
 
-    RPAREN          reduce using rule 6 (expression -> expression MINUS term .)
-    EXPONENTIAL     reduce using rule 6 (expression -> expression MINUS term .)
-    PLUS            reduce using rule 6 (expression -> expression MINUS term .)
-    MINUS           reduce using rule 6 (expression -> expression MINUS term .)
-    DIVIDE          shift and go to state 6
-    MULTIPLY        shift and go to state 7
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
 
+    term                           shift and go to state 4
+    expression                     shift and go to state 33
+    factor                         shift and go to state 34
+
+state 19
+
+    (16) term -> term DIVIDE . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
+
+    factor                         shift and go to state 35
+
+state 20
+
+    (14) expression -> MINUS expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 14 (expression -> MINUS expression .)
+    MINUS           reduce using rule 14 (expression -> MINUS expression .)
+    EXPONENTIAL     reduce using rule 14 (expression -> MINUS expression .)
+    MULTIPLY        reduce using rule 14 (expression -> MINUS expression .)
+    $end            reduce using rule 14 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 14 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+  ! MULTIPLY        [ shift and go to state 14 ]
+
+
+state 21
+
+    (13) expression -> WORD .
+
+    PLUS            reduce using rule 13 (expression -> WORD .)
+    MINUS           reduce using rule 13 (expression -> WORD .)
+    EXPONENTIAL     reduce using rule 13 (expression -> WORD .)
+    MULTIPLY        reduce using rule 13 (expression -> WORD .)
+    $end            reduce using rule 13 (expression -> WORD .)
+    RPAREN          reduce using rule 13 (expression -> WORD .)
+
+
+state 22
+
+    (21) factor -> LPAREN expression . RPAREN
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    RPAREN          shift and go to state 36
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    EXPONENTIAL     shift and go to state 13
+    MULTIPLY        shift and go to state 14
+
+
+state 23
+
+    (1) stmt -> WORD EQUAL expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    $end            reduce using rule 1 (stmt -> WORD EQUAL expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    EXPONENTIAL     shift and go to state 13
+    MULTIPLY        shift and go to state 14
+
+
+state 24
+
+    (9) expression -> expression PLUS expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 9 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 9 (expression -> expression PLUS expression .)
+    EXPONENTIAL     reduce using rule 9 (expression -> expression PLUS expression .)
+    $end            reduce using rule 9 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 9 (expression -> expression PLUS expression .)
+    MULTIPLY        shift and go to state 14
+
+  ! MULTIPLY        [ reduce using rule 9 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+
+
+state 25
+
+    (3) expression -> expression PLUS term .
+    (16) term -> term . DIVIDE factor
+    (17) term -> term . MULTIPLY factor
+    (4) expression -> term . PLUS expression
+    (6) expression -> term . MINUS expression
+    (8) expression -> term . EXPONENTIAL expression
+    (12) expression -> term . MULTIPLY expression
+    (15) expression -> term .
+
+  ! reduce/reduce conflict for PLUS resolved using rule 3 (expression -> expression PLUS term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 3 (expression -> expression PLUS term .)
+  ! reduce/reduce conflict for EXPONENTIAL resolved using rule 3 (expression -> expression PLUS term .)
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! reduce/reduce conflict for $end resolved using rule 3 (expression -> expression PLUS term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 3 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 3 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 3 (expression -> expression PLUS term .)
+    EXPONENTIAL     reduce using rule 3 (expression -> expression PLUS term .)
+    $end            reduce using rule 3 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 3 (expression -> expression PLUS term .)
+    DIVIDE          shift and go to state 19
+    MULTIPLY        shift and go to state 37
+
+  ! MULTIPLY        [ reduce using rule 3 (expression -> expression PLUS term .) ]
+  ! PLUS            [ shift and go to state 15 ]
+  ! MINUS           [ shift and go to state 16 ]
+  ! EXPONENTIAL     [ shift and go to state 17 ]
+  ! PLUS            [ reduce using rule 15 (expression -> term .) ]
+  ! MINUS           [ reduce using rule 15 (expression -> term .) ]
+  ! EXPONENTIAL     [ reduce using rule 15 (expression -> term .) ]
+  ! MULTIPLY        [ reduce using rule 15 (expression -> term .) ]
+  ! $end            [ reduce using rule 15 (expression -> term .) ]
+  ! RPAREN          [ reduce using rule 15 (expression -> term .) ]
+
+
+state 26
+
+    (5) expression -> expression MINUS term .
+    (16) term -> term . DIVIDE factor
+    (17) term -> term . MULTIPLY factor
+
+    PLUS            reduce using rule 5 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 5 (expression -> expression MINUS term .)
+    EXPONENTIAL     reduce using rule 5 (expression -> expression MINUS term .)
+    $end            reduce using rule 5 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 5 (expression -> expression MINUS term .)
+    DIVIDE          shift and go to state 19
+    MULTIPLY        shift and go to state 38
+
+  ! MULTIPLY        [ reduce using rule 5 (expression -> expression MINUS term .) ]
+
+
+state 27
+
+    (7) expression -> expression EXPONENTIAL term .
+    (16) term -> term . DIVIDE factor
+    (17) term -> term . MULTIPLY factor
+
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+    PLUS            reduce using rule 7 (expression -> expression EXPONENTIAL term .)
+    MINUS           reduce using rule 7 (expression -> expression EXPONENTIAL term .)
+    EXPONENTIAL     reduce using rule 7 (expression -> expression EXPONENTIAL term .)
+    $end            reduce using rule 7 (expression -> expression EXPONENTIAL term .)
+    RPAREN          reduce using rule 7 (expression -> expression EXPONENTIAL term .)
+    DIVIDE          shift and go to state 19
+    MULTIPLY        shift and go to state 38
+
+  ! MULTIPLY        [ reduce using rule 7 (expression -> expression EXPONENTIAL term .) ]
+
+
+state 28
+
+    (10) expression -> expression MULTIPLY expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 10 (expression -> expression MULTIPLY expression .)
+    MINUS           reduce using rule 10 (expression -> expression MULTIPLY expression .)
+    EXPONENTIAL     reduce using rule 10 (expression -> expression MULTIPLY expression .)
+    MULTIPLY        reduce using rule 10 (expression -> expression MULTIPLY expression .)
+    $end            reduce using rule 10 (expression -> expression MULTIPLY expression .)
+    RPAREN          reduce using rule 10 (expression -> expression MULTIPLY expression .)
+
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+  ! MULTIPLY        [ shift and go to state 14 ]
+
+
+state 29
+
+    (11) expression -> expression MULTIPLY term .
+    (4) expression -> term . PLUS expression
+    (6) expression -> term . MINUS expression
+    (8) expression -> term . EXPONENTIAL expression
+    (12) expression -> term . MULTIPLY expression
+    (15) expression -> term .
+    (16) term -> term . DIVIDE factor
+    (17) term -> term . MULTIPLY factor
+
+  ! reduce/reduce conflict for PLUS resolved using rule 11 (expression -> expression MULTIPLY term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 11 (expression -> expression MULTIPLY term .)
+  ! reduce/reduce conflict for EXPONENTIAL resolved using rule 11 (expression -> expression MULTIPLY term .)
+  ! reduce/reduce conflict for MULTIPLY resolved using rule 11 (expression -> expression MULTIPLY term .)
+  ! reduce/reduce conflict for $end resolved using rule 11 (expression -> expression MULTIPLY term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 11 (expression -> expression MULTIPLY term .)
+    PLUS            reduce using rule 11 (expression -> expression MULTIPLY term .)
+    MINUS           reduce using rule 11 (expression -> expression MULTIPLY term .)
+    EXPONENTIAL     reduce using rule 11 (expression -> expression MULTIPLY term .)
+    MULTIPLY        reduce using rule 11 (expression -> expression MULTIPLY term .)
+    $end            reduce using rule 11 (expression -> expression MULTIPLY term .)
+    RPAREN          reduce using rule 11 (expression -> expression MULTIPLY term .)
+    DIVIDE          shift and go to state 19
+
+  ! PLUS            [ shift and go to state 15 ]
+  ! MINUS           [ shift and go to state 16 ]
+  ! EXPONENTIAL     [ shift and go to state 17 ]
+  ! MULTIPLY        [ shift and go to state 18 ]
+  ! PLUS            [ reduce using rule 15 (expression -> term .) ]
+  ! MINUS           [ reduce using rule 15 (expression -> term .) ]
+  ! EXPONENTIAL     [ reduce using rule 15 (expression -> term .) ]
+  ! MULTIPLY        [ reduce using rule 15 (expression -> term .) ]
+  ! $end            [ reduce using rule 15 (expression -> term .) ]
+  ! RPAREN          [ reduce using rule 15 (expression -> term .) ]
+
+
+state 30
+
+    (4) expression -> term PLUS expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 4 (expression -> term PLUS expression .)
+    MINUS           reduce using rule 4 (expression -> term PLUS expression .)
+    EXPONENTIAL     reduce using rule 4 (expression -> term PLUS expression .)
+    $end            reduce using rule 4 (expression -> term PLUS expression .)
+    RPAREN          reduce using rule 4 (expression -> term PLUS expression .)
+    MULTIPLY        shift and go to state 14
+
+  ! MULTIPLY        [ reduce using rule 4 (expression -> term PLUS expression .) ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+
+
+state 31
+
+    (6) expression -> term MINUS expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 6 (expression -> term MINUS expression .)
+    MINUS           reduce using rule 6 (expression -> term MINUS expression .)
+    EXPONENTIAL     reduce using rule 6 (expression -> term MINUS expression .)
+    $end            reduce using rule 6 (expression -> term MINUS expression .)
+    RPAREN          reduce using rule 6 (expression -> term MINUS expression .)
+    MULTIPLY        shift and go to state 14
+
+  ! MULTIPLY        [ reduce using rule 6 (expression -> term MINUS expression .) ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+
+
+state 32
+
+    (8) expression -> term EXPONENTIAL expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for EXPONENTIAL resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+    $end            reduce using rule 8 (expression -> term EXPONENTIAL expression .)
+    RPAREN          reduce using rule 8 (expression -> term EXPONENTIAL expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    EXPONENTIAL     shift and go to state 13
+    MULTIPLY        shift and go to state 14
+
+  ! PLUS            [ reduce using rule 8 (expression -> term EXPONENTIAL expression .) ]
+  ! MINUS           [ reduce using rule 8 (expression -> term EXPONENTIAL expression .) ]
+  ! EXPONENTIAL     [ reduce using rule 8 (expression -> term EXPONENTIAL expression .) ]
+  ! MULTIPLY        [ reduce using rule 8 (expression -> term EXPONENTIAL expression .) ]
+
+
+state 33
+
+    (12) expression -> term MULTIPLY expression .
+    (3) expression -> expression . PLUS term
+    (5) expression -> expression . MINUS term
+    (7) expression -> expression . EXPONENTIAL term
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MULTIPLY expression
+    (11) expression -> expression . MULTIPLY term
+
+    PLUS            reduce using rule 12 (expression -> term MULTIPLY expression .)
+    MINUS           reduce using rule 12 (expression -> term MULTIPLY expression .)
+    EXPONENTIAL     reduce using rule 12 (expression -> term MULTIPLY expression .)
+    MULTIPLY        reduce using rule 12 (expression -> term MULTIPLY expression .)
+    $end            reduce using rule 12 (expression -> term MULTIPLY expression .)
+    RPAREN          reduce using rule 12 (expression -> term MULTIPLY expression .)
+
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! EXPONENTIAL     [ shift and go to state 13 ]
+  ! MULTIPLY        [ shift and go to state 14 ]
+
+
+state 34
+
+    (17) term -> term MULTIPLY factor .
+    (18) term -> factor .
+
+  ! reduce/reduce conflict for PLUS resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for MINUS resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for EXPONENTIAL resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for MULTIPLY resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for $end resolved using rule 17 (term -> term MULTIPLY factor .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 17 (term -> term MULTIPLY factor .)
+    PLUS            reduce using rule 17 (term -> term MULTIPLY factor .)
+    MINUS           reduce using rule 17 (term -> term MULTIPLY factor .)
+    EXPONENTIAL     reduce using rule 17 (term -> term MULTIPLY factor .)
+    MULTIPLY        reduce using rule 17 (term -> term MULTIPLY factor .)
+    DIVIDE          reduce using rule 17 (term -> term MULTIPLY factor .)
+    $end            reduce using rule 17 (term -> term MULTIPLY factor .)
+    RPAREN          reduce using rule 17 (term -> term MULTIPLY factor .)
+
+  ! PLUS            [ reduce using rule 18 (term -> factor .) ]
+  ! MINUS           [ reduce using rule 18 (term -> factor .) ]
+  ! EXPONENTIAL     [ reduce using rule 18 (term -> factor .) ]
+  ! MULTIPLY        [ reduce using rule 18 (term -> factor .) ]
+  ! DIVIDE          [ reduce using rule 18 (term -> factor .) ]
+  ! $end            [ reduce using rule 18 (term -> factor .) ]
+  ! RPAREN          [ reduce using rule 18 (term -> factor .) ]
+
+
+state 35
+
+    (16) term -> term DIVIDE factor .
+
+    PLUS            reduce using rule 16 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 16 (term -> term DIVIDE factor .)
+    EXPONENTIAL     reduce using rule 16 (term -> term DIVIDE factor .)
+    MULTIPLY        reduce using rule 16 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 16 (term -> term DIVIDE factor .)
+    $end            reduce using rule 16 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 16 (term -> term DIVIDE factor .)
+
+
+state 36
+
+    (21) factor -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    EXPONENTIAL     reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    MULTIPLY        reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    $end            reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 21 (factor -> LPAREN expression RPAREN .)
+
+
+state 37
+
+    (17) term -> term MULTIPLY . factor
+    (12) expression -> term MULTIPLY . expression
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
+    (3) expression -> . expression PLUS term
+    (4) expression -> . term PLUS expression
+    (5) expression -> . expression MINUS term
+    (6) expression -> . term MINUS expression
+    (7) expression -> . expression EXPONENTIAL term
+    (8) expression -> . term EXPONENTIAL expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MULTIPLY expression
+    (11) expression -> . expression MULTIPLY term
+    (12) expression -> . term MULTIPLY expression
+    (13) expression -> . WORD
+    (14) expression -> . MINUS expression
+    (15) expression -> . term
+    (16) term -> . term DIVIDE factor
+    (17) term -> . term MULTIPLY factor
+    (18) term -> . factor
+
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
+    WORD            shift and go to state 21
+    MINUS           shift and go to state 5
+
+    term                           shift and go to state 4
+    factor                         shift and go to state 34
+    expression                     shift and go to state 33
+
+state 38
+
+    (17) term -> term MULTIPLY . factor
+    (19) factor -> . NUMBER
+    (20) factor -> . FLOATNUMBER
+    (21) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 7
+    FLOATNUMBER     shift and go to state 8
+    LPAREN          shift and go to state 9
+
+    factor                         shift and go to state 39
+
+state 39
+
+    (17) term -> term MULTIPLY factor .
+
+    DIVIDE          reduce using rule 17 (term -> term MULTIPLY factor .)
+    MULTIPLY        reduce using rule 17 (term -> term MULTIPLY factor .)
+    PLUS            reduce using rule 17 (term -> term MULTIPLY factor .)
+    MINUS           reduce using rule 17 (term -> term MULTIPLY factor .)
+    EXPONENTIAL     reduce using rule 17 (term -> term MULTIPLY factor .)
+    $end            reduce using rule 17 (term -> term MULTIPLY factor .)
+    RPAREN          reduce using rule 17 (term -> term MULTIPLY factor .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 4 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 4 resolved as shift
+WARNING: shift/reduce conflict for EXPONENTIAL in state 4 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 4 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 25 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 27 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for EXPONENTIAL in state 32 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 32 resolved as shift
+WARNING: reduce/reduce conflict in state 25 resolved using rule (expression -> expression PLUS term)
+WARNING: rejected rule (expression -> term) in state 25
+WARNING: reduce/reduce conflict in state 29 resolved using rule (expression -> expression MULTIPLY term)
+WARNING: rejected rule (expression -> term) in state 29
+WARNING: reduce/reduce conflict in state 34 resolved using rule (term -> term MULTIPLY factor)
+WARNING: rejected rule (term -> factor) in state 34

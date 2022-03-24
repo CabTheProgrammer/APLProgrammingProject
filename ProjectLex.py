@@ -43,6 +43,8 @@ t_EQUAL = r'\='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 
+
+
 # Regular expression rule with some action code
 def t_NUMBER(t):
     r'\d+'
@@ -59,8 +61,8 @@ def t_NewLine(t):
     t.lexer.lineno += len(t.value)
 
 # To specify characters/letters (Basically any word)
-def t_WORD(t):
-    r'[a-zA-Z][a-zA-Z0-9]*'
+def t_WORD(t): 
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
     # THIS DEF NAME MUST MATCH THE PRE-DEFINED TOKEN FROM ABOVE FOR IT TO WORK. SEE LINE 10.
     # So you get t_WORD (Where 't' means Token).
     t.value = str(t.value)
