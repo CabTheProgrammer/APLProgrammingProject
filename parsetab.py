@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'rightEQUALleftPLUSMINUSleftMULTIPLYDIVIDErightUMINUSCOLON COMMA DIVIDE EQUAL EXPONENTIAL FLOATNUMBER LPAREN MINUS MULTIPLY NUMBER PLUS POINT PRINT QUOTE RPAREN STRING WORD\n    stmt : WORD EQUAL expression  \n         | WORD EQUAL STRING\n         \n    \n    stmt : expression\n         \n    \n        expression  : expression PLUS term\n                    | expression PLUS expression\n                    |       term PLUS expression\n                    | expression MINUS term\n                    |       term MINUS expression\n                    | expression MINUS expression\n                    | expression EXPONENTIAL term\n                    |       term EXPONENTIAL expression\n                    | expression EXPONENTIAL expression\n                    | expression MULTIPLY term\n                    |       term MULTIPLY  expression\n                    | expression MULTIPLY expression\n                    | expression DIVIDE term\n                    |       term DIVIDE expression\n                    | expression DIVIDE expression\n    \n    expression : WORD\n    \n    expression : MINUS expression %prec UMINUS\n    \n        expression : term\n    \n            term : term DIVIDE factor\n                 | term MULTIPLY factor\n                \n        \n            term : factor\n        \n       factor :  NUMBER\n              |  FLOATNUMBER\n              |  LPAREN expression RPAREN\n    '
+_lr_signature = 'rightEQUALleftPLUSMINUSleftMULTIPLYDIVIDErightUMINUSCOLON COMMA DIVIDE EQUAL EXPONENTIAL FLOATNUMBER LPAREN MINUS MULTIPLY NUMBER PLUS POINT PRINT QUOTE RPAREN STRING WORD\n    stmt : WORD EQUAL expression  \n         | WORD EQUAL STRING\n         | PRINT STRING\n         | PRINT WORD\n         | PRINT STRING COMMA WORD\n         \n    \n    stmt : expression\n         \n    \n        expression  : expression PLUS term\n                    | expression PLUS expression\n                    |       term PLUS expression\n                    | expression MINUS term\n                    |       term MINUS expression\n                    | expression MINUS expression\n                    | expression EXPONENTIAL term\n                    |       term EXPONENTIAL expression\n                    | expression EXPONENTIAL expression\n                    | expression MULTIPLY term\n                    |       term MULTIPLY  expression\n                    | expression MULTIPLY expression\n                    | expression DIVIDE term\n                    |       term DIVIDE expression\n                    | expression DIVIDE expression\n    \n    expression : WORD\n    \n    expression : MINUS expression %prec UMINUS\n    \n        expression : term\n    \n            term : term DIVIDE factor\n                 | term MULTIPLY factor\n                \n        \n            term : factor\n        \n       factor :  NUMBER\n              |  FLOATNUMBER\n              |  LPAREN expression RPAREN\n    '
     
-_lr_action_items = {'WORD':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[2,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,]),'MINUS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,],[5,-19,12,17,5,-24,-25,-26,5,5,5,5,5,5,5,5,5,5,5,5,-20,-19,12,12,-5,-4,-9,-7,12,17,-15,-13,-18,-16,-6,-8,12,-14,-23,-17,-22,-27,5,5,]),'NUMBER':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,]),'FLOATNUMBER':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'LPAREN':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,]),'$end':([1,2,3,4,6,7,8,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[0,-19,-3,-21,-24,-25,-26,-20,-19,-1,-2,-5,-4,-9,-7,-12,-10,-15,-13,-18,-16,-6,-8,-11,-14,-23,-17,-22,-27,]),'EQUAL':([2,],[10,]),'PLUS':([2,3,4,6,7,8,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[-19,11,16,-24,-25,-26,-20,-19,11,11,-5,-4,-9,-7,11,16,-15,-13,-18,-16,-6,-8,11,-14,-23,-17,-22,-27,]),'EXPONENTIAL':([2,3,4,6,7,8,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[-19,13,18,-24,-25,-26,-20,-19,13,13,-5,-4,-9,-7,13,18,-15,-13,-18,-16,-6,-8,13,-14,-23,-17,-22,-27,]),'MULTIPLY':([2,3,4,6,7,8,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[-19,14,19,-24,-25,-26,-20,-19,14,14,14,45,14,45,14,45,-15,-13,-18,-16,14,14,14,-14,-23,-17,-22,-27,]),'DIVIDE':([2,3,4,6,7,8,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[-19,15,20,-24,-25,-26,-20,-19,15,15,15,44,15,44,15,44,-15,-13,-18,-16,15,15,15,-14,-23,-17,-22,-27,]),'RPAREN':([4,6,7,8,21,22,23,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,],[-21,-24,-25,-26,-20,-19,43,-5,-4,-9,-7,-12,-10,-15,-13,-18,-16,-6,-8,-11,-14,-23,-17,-22,-27,]),'STRING':([10,],[25,]),}
+_lr_action_items = {'WORD':([0,4,6,10,11,12,13,14,15,16,19,20,21,22,23,39,48,49,],[2,18,25,25,25,25,25,25,25,25,25,25,25,25,25,50,25,25,]),'PRINT':([0,],[4,]),'MINUS':([0,2,3,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,],[6,-22,13,20,6,-27,-28,-29,6,6,6,6,6,6,6,6,6,6,6,6,-23,-22,13,13,-8,-7,-12,-10,13,20,-18,-16,-21,-19,-9,-11,13,-17,-26,-20,-25,-30,6,6,]),'NUMBER':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'FLOATNUMBER':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,]),'LPAREN':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,]),'$end':([1,2,3,5,7,8,9,17,18,24,25,27,28,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,50,],[0,-22,-6,-24,-27,-28,-29,-3,-4,-23,-22,-1,-2,-8,-7,-12,-10,-15,-13,-18,-16,-21,-19,-9,-11,-14,-17,-26,-20,-25,-30,-5,]),'EQUAL':([2,],[11,]),'PLUS':([2,3,5,7,8,9,24,25,26,27,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,],[-22,12,19,-27,-28,-29,-23,-22,12,12,-8,-7,-12,-10,12,19,-18,-16,-21,-19,-9,-11,12,-17,-26,-20,-25,-30,]),'EXPONENTIAL':([2,3,5,7,8,9,24,25,26,27,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,],[-22,14,21,-27,-28,-29,-23,-22,14,14,-8,-7,-12,-10,14,21,-18,-16,-21,-19,-9,-11,14,-17,-26,-20,-25,-30,]),'MULTIPLY':([2,3,5,7,8,9,24,25,26,27,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,],[-22,15,22,-27,-28,-29,-23,-22,15,15,15,49,15,49,15,49,-18,-16,-21,-19,15,15,15,-17,-26,-20,-25,-30,]),'DIVIDE':([2,3,5,7,8,9,24,25,26,27,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,],[-22,16,23,-27,-28,-29,-23,-22,16,16,16,48,16,48,16,48,-18,-16,-21,-19,16,16,16,-17,-26,-20,-25,-30,]),'STRING':([4,11,],[17,28,]),'RPAREN':([5,7,8,9,24,25,26,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,],[-24,-27,-28,-29,-23,-22,47,-8,-7,-12,-10,-15,-13,-18,-16,-21,-19,-9,-11,-14,-17,-26,-20,-25,-30,]),'COMMA':([17,],[39,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'stmt':([0,],[1,]),'expression':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[3,21,23,24,26,28,30,32,34,36,37,38,39,41,41,39,]),'term':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[4,4,4,4,27,29,31,33,35,4,4,4,4,4,4,4,]),'factor':([0,5,9,10,11,12,13,14,15,16,17,18,19,20,44,45,],[6,6,6,6,6,6,6,6,6,6,6,6,40,42,42,40,]),}
+_lr_goto_items = {'stmt':([0,],[1,]),'expression':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[3,24,26,27,29,31,33,35,37,40,41,42,43,45,45,43,]),'term':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[5,5,5,5,30,32,34,36,38,5,5,5,5,5,5,5,]),'factor':([0,6,10,11,12,13,14,15,16,19,20,21,22,23,48,49,],[7,7,7,7,7,7,7,7,7,7,7,7,44,46,46,44,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -29,29 +29,32 @@ _lr_productions = [
   ("S' -> stmt","S'",1,None,None,None),
   ('stmt -> WORD EQUAL expression','stmt',3,'p_stmt_op','yaccc(NEW ONE).py',35),
   ('stmt -> WORD EQUAL STRING','stmt',3,'p_stmt_op','yaccc(NEW ONE).py',36),
-  ('stmt -> expression','stmt',1,'p_stmt_def','yaccc(NEW ONE).py',44),
-  ('expression -> expression PLUS term','expression',3,'p_express_operation','yaccc(NEW ONE).py',52),
-  ('expression -> expression PLUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',53),
-  ('expression -> term PLUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',54),
-  ('expression -> expression MINUS term','expression',3,'p_express_operation','yaccc(NEW ONE).py',55),
-  ('expression -> term MINUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',56),
-  ('expression -> expression MINUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',57),
-  ('expression -> expression EXPONENTIAL term','expression',3,'p_express_operation','yaccc(NEW ONE).py',58),
-  ('expression -> term EXPONENTIAL expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',59),
-  ('expression -> expression EXPONENTIAL expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',60),
-  ('expression -> expression MULTIPLY term','expression',3,'p_express_operation','yaccc(NEW ONE).py',61),
-  ('expression -> term MULTIPLY expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',62),
-  ('expression -> expression MULTIPLY expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',63),
-  ('expression -> expression DIVIDE term','expression',3,'p_express_operation','yaccc(NEW ONE).py',64),
-  ('expression -> term DIVIDE expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',65),
-  ('expression -> expression DIVIDE expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',66),
-  ('expression -> WORD','expression',1,'p_expression_word','yaccc(NEW ONE).py',91),
-  ('expression -> MINUS expression','expression',2,'p_expression_uminus','yaccc(NEW ONE).py',117),
-  ('expression -> term','expression',1,'p_express_def','yaccc(NEW ONE).py',124),
-  ('term -> term DIVIDE factor','term',3,'p_term_operation','yaccc(NEW ONE).py',131),
-  ('term -> term MULTIPLY factor','term',3,'p_term_operation','yaccc(NEW ONE).py',132),
-  ('term -> factor','term',1,'p_term_def','yaccc(NEW ONE).py',147),
-  ('factor -> NUMBER','factor',1,'p_factor_def','yaccc(NEW ONE).py',154),
-  ('factor -> FLOATNUMBER','factor',1,'p_factor_def','yaccc(NEW ONE).py',155),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_def','yaccc(NEW ONE).py',156),
+  ('stmt -> PRINT STRING','stmt',2,'p_stmt_op','yaccc(NEW ONE).py',37),
+  ('stmt -> PRINT WORD','stmt',2,'p_stmt_op','yaccc(NEW ONE).py',38),
+  ('stmt -> PRINT STRING COMMA WORD','stmt',4,'p_stmt_op','yaccc(NEW ONE).py',39),
+  ('stmt -> expression','stmt',1,'p_stmt_def','yaccc(NEW ONE).py',55),
+  ('expression -> expression PLUS term','expression',3,'p_express_operation','yaccc(NEW ONE).py',63),
+  ('expression -> expression PLUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',64),
+  ('expression -> term PLUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',65),
+  ('expression -> expression MINUS term','expression',3,'p_express_operation','yaccc(NEW ONE).py',66),
+  ('expression -> term MINUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',67),
+  ('expression -> expression MINUS expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',68),
+  ('expression -> expression EXPONENTIAL term','expression',3,'p_express_operation','yaccc(NEW ONE).py',69),
+  ('expression -> term EXPONENTIAL expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',70),
+  ('expression -> expression EXPONENTIAL expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',71),
+  ('expression -> expression MULTIPLY term','expression',3,'p_express_operation','yaccc(NEW ONE).py',72),
+  ('expression -> term MULTIPLY expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',73),
+  ('expression -> expression MULTIPLY expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',74),
+  ('expression -> expression DIVIDE term','expression',3,'p_express_operation','yaccc(NEW ONE).py',75),
+  ('expression -> term DIVIDE expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',76),
+  ('expression -> expression DIVIDE expression','expression',3,'p_express_operation','yaccc(NEW ONE).py',77),
+  ('expression -> WORD','expression',1,'p_expression_word','yaccc(NEW ONE).py',102),
+  ('expression -> MINUS expression','expression',2,'p_expression_uminus','yaccc(NEW ONE).py',128),
+  ('expression -> term','expression',1,'p_express_def','yaccc(NEW ONE).py',135),
+  ('term -> term DIVIDE factor','term',3,'p_term_operation','yaccc(NEW ONE).py',142),
+  ('term -> term MULTIPLY factor','term',3,'p_term_operation','yaccc(NEW ONE).py',143),
+  ('term -> factor','term',1,'p_term_def','yaccc(NEW ONE).py',158),
+  ('factor -> NUMBER','factor',1,'p_factor_def','yaccc(NEW ONE).py',165),
+  ('factor -> FLOATNUMBER','factor',1,'p_factor_def','yaccc(NEW ONE).py',166),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_def','yaccc(NEW ONE).py',167),
 ]

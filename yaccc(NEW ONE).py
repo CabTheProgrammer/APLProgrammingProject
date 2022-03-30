@@ -34,10 +34,26 @@ def p_stmt_op(p):
     """
     stmt : WORD EQUAL expression  
          | WORD EQUAL STRING
+         | PRINT STRING
+         | PRINT WORD
+         | PRINT STRING COMMA WORD
          
     """
-    names[p[1]] = p[3]
-
+    try:
+        if len(p) == 5:
+            string = p[2]
+            if(p[4]) in names:
+                string+= names[p[4]]
+            print(string)
+        elif p[1] == 'PRINT':
+            if(p[2]) in names:
+                print(names[p[2]])
+            else:
+                print(p[2])
+        else:
+            names[p[1]] = p[3]
+    except Exception:
+        print("Error detected!")
 
 def p_stmt_def(p):
     """
