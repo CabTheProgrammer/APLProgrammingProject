@@ -1,13 +1,15 @@
 # Program to make a lexical Analyzer
-# Done by: Ralph Taylor | ID: 1803071
+# Done by: Ralph Taylor     |ID: 1803071
+#          Seantae Laylor   |ID: 1808021
+#          Casandru Bartley |ID: 1808016
 
+import re
 import ply.lex as lex
 from  ply.lex import TOKEN
 import sys
 # Imports for LEX to make a lexical analyzer
-
+reserved_tokens = {'PRINT':'print'}
 tokens = (
-
     'WORD',
     'POINT',
     'NUMBER',
@@ -21,6 +23,10 @@ tokens = (
     'EQUAL',
     'LPAREN',
     'RPAREN',
+    'PRINT',
+    'COMMA',
+    'QUOTE',
+    'STRING', # I had this commented out so it wouldn't work
 
 )
 
@@ -42,6 +48,10 @@ t_EXPONENTIAL = r'\^'
 t_EQUAL = r'\='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_PRINT = r'PRINT'
+t_COMMA = r'\,'
+t_QUOTE = r'\"'
+
 
 
 
@@ -61,10 +71,20 @@ def t_NewLine(t):
     t.lexer.lineno += len(t.value)
 
 # To specify characters/letters (Basically any word)
+
+def t_STRING(t): # finds strings
+    r'"\w.+"'
+    t.value = t.value[1:-1] # strips the quotation marks of the string
+    return t
+
 def t_WORD(t): 
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     # THIS DEF NAME MUST MATCH THE PRE-DEFINED TOKEN FROM ABOVE FOR IT TO WORK. SEE LINE 10.
     # So you get t_WORD (Where 't' means Token).
+    if t.value in reserved_tokens:
+        t.type = reserved_tokens[t.value]
+    else:
+     t.type = 'WORD'
     t.value = str(t.value)
 
     # Return gives back the WORD TOKEN entered then "Stores it" (I think anyway for the stores part).
@@ -84,6 +104,7 @@ def t_error(t):
 data = ''' 3 + 4   
      '''
 # To build the lexer
+# lexer = lex.lex() #TODO: REMOVE THE DEBUG FLAG
 lexer = lex.lex(debug = 1) #TODO: REMOVE THE DEBUG FLAG
 
 # Give the lexer the data above as input
@@ -105,4 +126,6 @@ lexer = lex.lex(debug = 1) #TODO: REMOVE THE DEBUG FLAG
 #   print(tok.type, ": ", tok.value) or print(token)
 
 # Program to make a lexical Analyzer
-# Done by: Ralph Taylor | ID: 1803071
+# Done by: Ralph Taylor     |ID: 1803071
+#          Seantae Laylor   |ID: 1808021
+#          Casandru Bartley |ID: 1808016

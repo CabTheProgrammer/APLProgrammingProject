@@ -1,7 +1,7 @@
 # You should install the speech recognizer then import it
 
 import speech_recognition as recognizer
-import playsound
+# import playsound
 
 
 # Then install pyaudio to be able to use any audio
@@ -22,3 +22,6 @@ def get_audio():
             print("Error with the recognizer! Please restart recognizer." + str(e))
             # Error, you will only have the blank string as detailed above.
     return said
+
+
+
