@@ -13,11 +13,11 @@ names = { }
 # Divide by zero error.
 # Added runtime error checks, aka panic mode recovery
 
-def p_print_stuff(p):
-    """
-    OUTPUT : PRINT stmt COMMA WORD
-    """
-    print("Activated")
+# def p_print_stuff(p):
+#     """
+#     OUTPUT : PRINT stmt COMMA WORD
+#     """
+#     print("Activated")
 
     
 # def p_string(p):

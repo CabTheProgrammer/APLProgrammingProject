@@ -8,7 +8,7 @@ import ply.lex as lex
 from  ply.lex import TOKEN
 import sys
 # Imports for LEX to make a lexical analyzer
-reserved_tokens = {'PRINT':'print'}
+reserved_tokens = {'PRINT':'PRINT'}
 tokens = (
     'WORD',
     'POINT',
