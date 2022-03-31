@@ -1,0 +1,6 @@
+base = 3.0
+height = 200
+area = 0.5 * base * height
+# This is a comment
+message = "I think Mr. White should give this group 100"
+PRINT message,area

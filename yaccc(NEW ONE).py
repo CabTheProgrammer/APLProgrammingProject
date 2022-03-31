@@ -4,6 +4,10 @@
 #          Casandru Bartley |ID: 1808016
 import ply.yacc as yacc
 from TextToSpeech import *
+from dis import dis
+import os
+import sys
+
 
 # Get the token map from the lexer.  This is required.
 from ProjectLex import tokens
@@ -45,15 +49,19 @@ def p_stmt_op(p):
             if(p[4]) in names:
                 string+= names[p[4]]
             print(string)
+            anything(string)
         elif p[1] == 'PRINT':
             if(p[2]) in names:
                 print(names[p[2]])
+                anything(names[p[2]])
             else:
                 print(p[2])
+                anything(p[2])
         else:
             names[p[1]] = p[3]
     except Exception:
         print("Error detected!")
+   
 
 def p_stmt_def(p):
     """
@@ -81,21 +89,26 @@ def p_express_operation(p):
                     |       term DIVIDE expression
                     | expression DIVIDE expression
     """
-    if p[2] == '+':
-        p[0] = p[1] + p[3]
-    elif p[2] == '-':
-        p[0] = p[1] - p[3]
-    elif p[2] == '^':
-        p[0] = pow(p[1], p[3])  # This is how you use Exponential in Python!
-    elif p[2] == '*':
-        p[0] = p[1] * p[3]
-    elif p[2] == '/':
-        try:
-            p[0] = p[1] / p[3]
-        except ZeroDivisionError:
-          p = "Syntax error! Idiot behind keyboard detected!"
-          anything(p)
-
+    try:
+        if p[2] == '+':
+            p[0] = p[1] + p[3]
+        elif p[2] == '-':
+            p[0] = p[1] - p[3]
+        elif p[2] == '^':
+            p[0] = pow(p[1], p[3])  # This is how you use Exponential in Python!
+        elif p[2] == '*':
+            p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            try:
+                p[0] = p[1] / p[3]
+            except ZeroDivisionError:
+             p = "Syntax error! Idiot behind keyboard detected!"
+            anything(p)
+        anything(p[0])
+    except TypeError:
+            p = "Cannot operate on two different types of data!"
+            print(p)
+            anything(p)
     
 
     # elif len(p) > 4:
@@ -187,26 +200,54 @@ def p_factor_def(p):
 
 
 def p_error(p):
-    print("Syntax error at '%s'" % p.value)
-    print("This is the last type: " + p.type)
-   
+    # print("Syntax error at '%s'" % p.value)
+    # print("This is the last type: " + p.type)
+   return
 
 
 # Build the parser
 parser = yacc.yacc(debug=True)
 # parser = yacc.yacc()
-
-print("Welcome to the SRC programming language\n")
-while True:
+print(len(sys.argv))
+if len(sys.argv) ==  1:
+    print("Welcome to the SRC programming language, version 0.1 ALPHA")
+    print("Created March 31 by Ralph Taylor, Seantae Laylor and Casandru Bartley")
+    while True:
+        try:
+            s = input('src > ')
+            # anything(s);
+        except EOFError:
+            break
+        except KeyboardInterrupt:
+             print("♥ Thank you for using the SRC programming language! ♥")
+             quit()
+        if not s: continue
+        result = parser.parse(s)
+        
+else:
     try:
-
-        s = input('src > ')
-    
-        # anything(s);
+        opened = open(sys.argv[1], "r")
+        content = opened.read()
+        opened.close()   
+        for line in content.splitlines():
+            parser.parse(line)
     except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
+        print("Error! End of File has been reached")
+    except KeyboardInterrupt:
+        print("Thank you for using the SRC programming language ♥")
+        
+
+    # print("Line No: "+ str(n)+" "+ line)
+    # n=n+1
+# parser.parse(content)
+
+
+    # name = "yaccmanual.txt"
+    # outfile = open(name,'w')
+    # outfile.write(help(yacc))
+    # outfile.close()
+    # break
+
     #print(result)
 # Done by: Ralph Taylor     |ID: 1803071
 #          Seantae Laylor   |ID: 1808021
