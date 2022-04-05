@@ -53,7 +53,7 @@ def p_stmt_op(p):
         elif p[1] == 'PRINT':
             if(p[2]) in names:
                 print(names[p[2]])
-                anything(names[p[2]])
+                anything(str(names[p[2]]))
             else:
                 print(p[2])
                 anything(p[2])
@@ -61,6 +61,7 @@ def p_stmt_op(p):
             names[p[1]] = p[3]
     except Exception:
         print("Error detected!")
+        print(Exception)
    
 
 def p_stmt_def(p):
@@ -69,6 +70,7 @@ def p_stmt_def(p):
          
     """
     print(p[1])
+    anything(p[1])
 
 
 def p_express_operation(p):
